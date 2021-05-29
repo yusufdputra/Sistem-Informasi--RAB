@@ -11,6 +11,7 @@
         <a href="#selesai-modal" data-animation="sign" data-plugin="custommodal" data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-success m-l-10 waves-light selesai  mb-5">Selesai</a>
 
       </div>
+      @endrole
 
       @if(\Session::has('alert'))
       <div class="alert alert-danger">
@@ -24,7 +25,10 @@
       </div>
       @endif
 
-      @endrole
+      @error('harga_barang')
+      <div class="alert alert-danger">{{ $message }}</div>
+      @enderror
+
 
       @php
       $harga_total = 0;
@@ -47,19 +51,20 @@
 
           @php
           $total = $value[0]->barang[0]->harga * $value[0]['kuantitas'];
-          $harga_total = $harga_total + ($value[0]->barang[0]->harga * $value[0]['kuantitas']);
+          $harga_total = $harga_total + ($value[0]->harga_barang * $value[0]['kuantitas']);
           @endphp
 
           <tr>
             <td>{{$key+1}}</td>
             <td>{{$value[0]->barang[0]->nama}}</td>
-            <td>{{$value[0]->barang[0]->suplier}}</td>
+            <td>{{$value[0]->barang[0]->suplier[0]['nama']}}</td>
             <td>{{$value[0]->barang[0]->harga}}</td>
             <td>{{$value[0]['kuantitas']}}</td>
             <td>{{$total}}</td>
             <td>
-              <a href="#edit-modal" data-animation="sign" data-plugin="custommodal" data-id='{{$value[0]->id}}' data-nama="{{$value[0]['nama']}}" data-idrab="{{$id_rab_get}}" data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-success btn-sm modal_edit"><i class="fa fa-edit"></i></a>
+              <a href="#edit-modal" data-animation="sign" data-plugin="custommodal" data-id='{{$value[0]->id}}'  data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-success btn-sm modal_edit"><i class="fa fa-edit"></i></a>
               <a href="#hapus-modal" data-animation="sign" data-plugin="custommodal" data-idrab="{{$id_rab_get}}" data-id='{{$value[0]->id}}' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-danger btn-sm hapus"><i class="fa fa-trash"></i></a>
+
 
 
             </td>
@@ -71,7 +76,6 @@
     </div>
   </div>
 </div>
-<!-- end row -->
 <div id="tambah-modal" class="modal-demo">
   <button type="button" class="close" onclick="Custombox.close();">
     <span>&times;</span><span class="sr-only">Close</span>
@@ -85,9 +89,7 @@
     <div class="p-20 text-left">
       <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="{{route('rab.edit.store')}}" method="POST">
         {{csrf_field()}}
-
         <input type="hidden" value="{{$id_rab_get}}" name="id_rab">
-
         <div class="form-group">
           <label for="">Kategori Barang</label>
           <div class="col-xs-12">
@@ -104,9 +106,25 @@
         <div class="form-group">
           <label>Nama barang</label>
           <div class="col-xs-12">
-            <select required class="form-control" id="nama_barang" name="id_barang">
-
+            <select required class="form-control" id="nama_barang" name="nama_barang">
+              <option disabled selected>Pilih..</option>
             </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Nama suplier</label>
+          <div class="col-xs-12">
+            <select required class="form-control" id="nama_suplier" name="nama_suplier">
+              <option disabled selected>Pilih..</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="">Harga Barang</label>
+          <div class="col-xs-12">
+            <input class="form-control" type="text" readonly id="harga_barang" autocomplete="off" name="harga_barang" required="" placeholder="Harga Barang">
           </div>
         </div>
 
@@ -131,6 +149,7 @@
 
 </div>
 
+
 <div id="edit-modal" class="modal-demo">
   <button type="button" class="close" onclick="Custombox.close();">
     <span>&times;</span><span class="sr-only">Close</span>
@@ -139,14 +158,13 @@
   <div class="custom-modal-text">
 
     <div class="text-center">
-      <h4 class="text-uppercase font-bold mb-0">Edit barang</h4>
+      <h4 class="text-uppercase font-bold mb-0">Edit Barang RAB </h4>
     </div>
     <div class="p-20 text-left">
 
       <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="{{route('rabtemp.update')}}" method="POST">
         {{csrf_field()}}
         <input type="hidden" name="id" id="edit_id">
-        <input type="hidden" name='id_rab' id='id_rab'>
 
         <div class="form-group">
           <label for="">Kategori Barang</label>
@@ -164,11 +182,28 @@
         <div class="form-group">
           <label>Nama barang</label>
           <div class="col-xs-12">
-            <select required class="form-control" id="edit_nama_barang" name="id_barang">
-
+            <select required class="form-control" id="edit_nama_barang" name="nama_barang">
+              <option disabled selected>Pilih..</option>
             </select>
           </div>
         </div>
+
+        <div class="form-group">
+          <label>Nama suplier</label>
+          <div class="col-xs-12">
+            <select required class="form-control" id="edit_nama_suplier" name="nama_suplier">
+              <option disabled selected>Pilih..</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="">Harga Barang</label>
+          <div class="col-xs-12">
+            <input class="form-control" min="0" type="text" readonly id="edit_harga_barang" autocomplete="off" name="harga_barang" required="" placeholder="Harga Barang">
+          </div>
+        </div>
+
 
         <div class="form-group">
           <label for="">Kuantitas Barang</label>
@@ -179,7 +214,7 @@
 
         <div class="form-group text-center m-t-30">
           <div class="col-xs-12">
-            <button class="btn btn-success btn-bordred btn-block waves-effect waves-light" type="submit">Ubah</button>
+            <button class="btn btn-success btn-bordred btn-block waves-effect waves-light ubah_button" type="submit">Ubah</button>
           </div>
         </div>
 
@@ -271,6 +306,8 @@
 </div>
 
 <script type="text/javascript">
+  // ajax untuk tambah baru
+  // get data nama barang by kategori
   document.getElementById('kategori').addEventListener("change", function() {
     $('#nama_barang').html('')
     $.ajax({
@@ -279,9 +316,11 @@
       dataType: 'json',
       success: 'success',
       success: function(data) {
-        data.forEach(element => {
+        var opt_barang_empt = new Option('Pilih..')
+        $('#nama_barang').append(opt_barang_empt)
 
-          var opt_barang = new Option(element['nama'] + ' - ' + element['suplier'] + ' - Rp.' + element['harga'], element['id'])
+        data.forEach(element => {
+          var opt_barang = new Option(element['nama'], element['nama'])
           // add to option nama_barang
           $('#nama_barang').append(opt_barang)
         });
@@ -293,12 +332,61 @@
     })
   })
 
+  // get data nama suplier by nama barang
+  document.getElementById('nama_barang').addEventListener("change", function() {
+    $('#nama_suplier').html('')
+    $.ajax({
+      url: '{{url("GetSuplierByNamaBarang")}}/' + this.value,
+      type: 'GET',
+      dataType: 'json',
+      success: 'success',
+      success: function(data) {
+        var opt_suplier_empt = new Option('Pilih..')
+        $('#nama_suplier').append(opt_suplier_empt)
+        data.forEach(element => {
+          var opt_barang = new Option(element['suplier'][0]['nama'], element['id'])
+          // add to option nama_barang
+          $('#nama_suplier').append(opt_barang)
+
+        });
+
+      },
+      error: function(data) {
+        toastr.error('Gagal memanggil data! ')
+      }
+    })
+  })
+
+  // get data harga barang by nama barang dan nama suplier
+  document.getElementById('nama_suplier').addEventListener("change", function() {
+    $('#harga_barang').html('')
+
+    $.ajax({
+
+      url: '{{url("GetBarangById")}}/' + this.value,
+      type: 'GET',
+      dataType: 'json',
+      success: 'success',
+      success: function(data) {
+        $('#harga_barang').val(data['harga'])
+        console.log(data)
+      },
+      error: function(data) {
+        $('#harga_barang').val('')
+        toastr.error('Gagal memanggil data! ')
+      }
+    })
+  })
+
+  // =============end ajax tambah================
+
+  // ajax untuk edit
   $('.modal_edit').click(function() {
     var id = $(this).data('id');
-    var idrab = $(this).data('idrab');
     $('#edit_id').val(id)
     $('#edit_nama_barang').html('')
-    $('#id_rab').html('')
+    $('#edit_nama_suplier').html('')
+    $('#edit_harga_barang').html('')
     $.ajax({
       url: '{{url("rabtemp/edit")}}/' + id,
       type: 'GET',
@@ -306,19 +394,31 @@
       success: 'success',
       success: function(data) {
         $('#edit_id').val(id)
-        $('#id_rab').val(idrab)
         $('#edit_kuantitas').val(data['rabTemp']['kuantitas'])
         $('#edit_kategori').val(data['barang'][0]['id_kategori'])
+        // harga barang
+        $('#edit_harga_barang').val(data['rabTemp']['harga_barang'])
 
+        // list nama barang
+        var opt_barang_empt = new Option('Pilih..')
+        $('#edit_nama_barang').append(opt_barang_empt)
         data['barangs'].forEach(element => {
-
-          console.log(element);
-
-          var opt_barang = new Option(element['nama'] + ' - ' + element['suplier'] + ' - Rp.' + element['harga'], element['id'])
+          var opt_barang = new Option(element['nama'], element['nama'])
           // add to option nama_barang
           $('#edit_nama_barang').append(opt_barang)
         });
-        $('#edit_nama_barang').val(data['rabTemp']['id_barang'])
+        $('#edit_nama_barang').val(data['barang'][0]['nama'])
+
+        // list nama suplier
+        var opt_supl_empt = new Option('Pilih..')
+        $('#edit_nama_suplier').append(opt_supl_empt)
+        data['supliers'].forEach(element => {
+          console.log(element);
+          var opt_suplier = new Option(element['suplier'][0]['nama'], element['id'])
+          // add to option suplier
+          $('#edit_nama_suplier').append(opt_suplier)
+        });
+        $('#edit_nama_suplier').val(data['barang'][0]['id'])
 
       },
       error: function(data) {
@@ -328,17 +428,21 @@
 
   });
 
+  // get data nama barang by kategori
   document.getElementById('edit_kategori').addEventListener("change", function() {
     $('#edit_nama_barang').html('')
+    $('#edit_harga_barang').val('')
     $.ajax({
       url: '{{url("GetBarangByKategori")}}/' + this.value,
       type: 'GET',
       dataType: 'json',
       success: 'success',
       success: function(data) {
-        data.forEach(element => {
+        var opt_barang_empt = new Option('Pilih..')
+        $('#edit_nama_barang').append(opt_barang_empt)
 
-          var opt_barang = new Option(element['nama'] + ' - ' + element['suplier'] + ' - Rp.' + element['harga'], element['id'])
+        data.forEach(element => {
+          var opt_barang = new Option(element['nama'], element['nama'])
           // add to option nama_barang
           $('#edit_nama_barang').append(opt_barang)
         });
@@ -350,12 +454,59 @@
     })
   })
 
+  // get data nama suplier by nama barang
+  document.getElementById('edit_nama_barang').addEventListener("change", function() {
+    $('#edit_nama_suplier').html('')
+    $('#edit_harga_barang').val('')
+    $.ajax({
+      url: '{{url("GetSuplierByNamaBarang")}}/' + this.value,
+      type: 'GET',
+      dataType: 'json',
+      success: 'success',
+      success: function(data) {
+        var opt_suplier_empt = new Option('Pilih..')
+        $('#edit_nama_suplier').append(opt_suplier_empt)
+        data.forEach(element => {
+          var opt_barang = new Option(element['suplier'][0]['nama'], element['id'])
+          // add to option nama_barang
+          $('#edit_nama_suplier').append(opt_barang)
+
+        });
+
+      },
+      error: function(data) {
+        toastr.error('Gagal memanggil data! ')
+      }
+    })
+  })
+
+  // get data harga barang by nama barang dan nama suplier
+  document.getElementById('edit_nama_suplier').addEventListener("change", function() {
+    $('#edit_harga_barang').html('')
+
+    $.ajax({
+      url: '{{url("GetBarangById")}}/' + this.value,
+      type: 'GET',
+      dataType: 'json',
+      success: 'success',
+      success: function(data) {
+        $('#edit_harga_barang').val(data['harga'])
+
+      },
+      error: function(data) {
+        $('#edit_harga_barang').val('')
+        toastr.error('Gagal memanggil data! ')
+      }
+    })
+  })
+
   $('.hapus').click(function() {
     var id = $(this).data('id');
     var idrab = $(this).data('idrab');
     $('#id_hapus').val(id);
     $('#id_rab_hapus').val(idrab);
   });
+
 
   $('.selesai').click(function() {
     var harga = document.getElementById('harga_total').value

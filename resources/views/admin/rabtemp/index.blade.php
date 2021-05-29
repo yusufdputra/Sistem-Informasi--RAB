@@ -399,6 +399,7 @@
         var opt_barang_empt = new Option('Pilih..')
         $('#edit_nama_barang').append(opt_barang_empt)
         data['barangs'].forEach(element => {
+          console.log(element);
           var opt_barang = new Option(element['nama'], element['nama'])
           // add to option nama_barang
           $('#edit_nama_barang').append(opt_barang)
@@ -409,7 +410,6 @@
         var opt_supl_empt = new Option('Pilih..')
         $('#edit_nama_suplier').append(opt_supl_empt)
         data['supliers'].forEach(element => {
-          console.log(element);
           var opt_suplier = new Option(element['suplier'][0]['nama'], element['id'])
           // add to option suplier
           $('#edit_nama_suplier').append(opt_suplier)

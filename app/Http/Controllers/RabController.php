@@ -10,6 +10,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PDF;
+
 class RabController extends Controller
 {
     public function __construct()
@@ -31,7 +32,7 @@ class RabController extends Controller
             $id_rab_temps = unserialize($value['id_rab_temp']);
             foreach ($id_rab_temps as $k => $id_temp) {
                 $rabTemp = RabTemp::with('barang')->where('id', $id_temp)->first();
-                $harga_total_rab = $harga_total_rab +( $rabTemp->barang[0]['harga'] * $rabTemp['kuantitas']);
+                $harga_total_rab = $harga_total_rab + ($rabTemp->barang[0]['harga'] * $rabTemp['kuantitas']);
             }
             $harga_total[$key] = $harga_total_rab;
         }
@@ -39,7 +40,7 @@ class RabController extends Controller
         return view('admin.rab.index', compact('pegawai', 'title', 'rab', 'harga_total'));
     }
 
-    
+
     public function hapus(Request $request)
     {
         $query = Rab::where('id', $request->id)->delete();
@@ -99,32 +100,46 @@ class RabController extends Controller
                 return redirect()->back()->with('alert', 'Gagal menghapus Barang');
             }
         } catch (\Throwable $th) {
-            return redirect()->back()->with('alert', 'Gagal menghapus Barang');
+            return redirect()->back()->with('alert', 'Gagal menghapus Barang' . $th);
         }
     }
 
     public function editUpdate(Request $request)
     {
+        $request->validate([
+            'harga_barang' => 'required',
+        ]);
         // update di tabel rab temporary
-        RabTemp::where('id', $request->id)
+        $query = RabTemp::where('id', $request->id)
             ->update([
-                'id_barang' => $request->id_barang,
+                'id_barang' => $request->nama_suplier,
                 'kuantitas' => $request->kuantitas,
+                'harga_barang' => $request->harga_barang,
+                'created_at' => Carbon::now()
             ]);
 
-        return redirect()->back()->with('success', 'RAB berhasil diubah');
+        if ($query) {
+            return redirect()->back()->with('success', 'RAB berhasil diubah');
+        } else {
+            return redirect()->back()->with('alert', 'RAB gagal diubah');
+        }
     }
 
     public function editStore(Request $request)
     {
+        $request->validate([
+            'harga_barang' => 'required',
+        ]);
         try {
+            
             // simpan ke rab temp
             // status auto 1
             $rabTemp = new RabTemp;
-            $rabTemp->id_barang = $request->id_barang;
+            $rabTemp->id_barang = $request->nama_suplier;
             $rabTemp->kuantitas = $request->kuantitas;
+            $rabTemp->harga_barang = $request->harga_barang;
             $rabTemp->is_selesai = 1;
-            $rabTemp->created_at = Carbon::now('+7:00');
+            $rabTemp->created_at = Carbon::now();
             $rabTemp->save();
 
             // get id nya
@@ -148,7 +163,7 @@ class RabController extends Controller
                 return redirect()->back()->with('alert', 'RAB gagal ditambah');
             }
         } catch (\Throwable $th) {
-            return redirect()->back()->with('alert', 'RAB gagal ditambah ');
+            return redirect()->back()->with('alert', 'RAB gagal ditambah '.$th);
         }
     }
 
@@ -170,7 +185,7 @@ class RabController extends Controller
     public function cetak($id_rab)
     {
         $rab = Rab::find($id_rab);
-       
+
         $rab_temp = array();
         foreach (unserialize($rab['id_rab_temp']) as $key => $value) {
             // get data

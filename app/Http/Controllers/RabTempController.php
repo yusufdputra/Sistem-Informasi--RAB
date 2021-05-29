@@ -67,7 +67,9 @@ class RabTempController extends Controller
         $supliers = Barang::with('suplier')
             ->where('nama', $barang[0]['nama'])
             ->get();
-        $barangs = Barang::where('id_kategori', $barang[0]['id_kategori'])->get();
+        $barangs = Barang::where('id_kategori', $barang[0]['id_kategori'])
+        ->groupBy('nama')
+        ->get();
         $data = compact('barang', 'rabTemp', 'barangs', 'supliers');
         return ($data);
     }
