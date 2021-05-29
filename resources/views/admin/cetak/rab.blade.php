@@ -63,7 +63,7 @@
         <div id="body">
 
             <p>Berikut ini kami sampaikan terkait orderan tanggal {{date('d-M-Y', strtotime($rab['created_at']))}} untuk
-                dapat dikirim.</p>
+                dapat diterima.</p>
 
             <div style="font-size: 12px;">
                 <table style="border: 1px;">
@@ -112,7 +112,7 @@
                             <tr>
                                 <td style="padding: 5px;">{{$key+1}}</td>
                                 <td>{{$value[0]->barang[0]->nama}}</td>
-                                <td>{{$value[0]->barang[0]->suplier}}</td>
+                                <td>{{$value[0]->barang[0]->suplier[0]['nama']}}</td>
                                 <td>{{$value[0]->barang[0]->harga}}</td>
                                 <td>{{$value[0]['kuantitas']}}</td>
                                 <td>{{$total}}</td>

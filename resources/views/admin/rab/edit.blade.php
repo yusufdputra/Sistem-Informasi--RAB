@@ -6,7 +6,7 @@
     <div class="card-box table-responsive">
       @role('admin')
       <div class="align-items-center">
-        <a href="{{route('rab.index')}}" onclick="history.back()" data-animation="sign" data-plugin="custommodal" data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-danger m-l-10 waves-light  mb-5">Kembali</a>
+        <a href="{{route('rab.index')}}"  class="btn btn-danger m-l-10 waves-light  mb-5">Kembali</a>
         <a href="#tambah-modal" data-animation="sign" data-plugin="custommodal" data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-primary m-l-10 waves-light  mb-5">Tambah</a>
         <a href="#selesai-modal" data-animation="sign" data-plugin="custommodal" data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-success m-l-10 waves-light selesai  mb-5">Selesai</a>
 

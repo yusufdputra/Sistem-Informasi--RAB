@@ -12,6 +12,6 @@ class RabTemp extends Model
     protected $dates = ['deleted_at'];
     public function barang()
     {
-        return $this->hasMany(Barang::class,'id', 'id_barang');
+        return $this->hasMany(Barang::class,'id', 'id_barang')->withTrashed();
     }
 }

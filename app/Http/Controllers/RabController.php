@@ -9,7 +9,7 @@ use App\Models\RabTemp;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use PDF;
+
 
 class RabController extends Controller
 {
@@ -71,6 +71,27 @@ class RabController extends Controller
         $kategori = Kategori::orderBy('nama')->get();
 
         return view('admin.rab.edit', compact('title', 'rab', 'kategori', 'id_rab_get', 'nama_rab'));
+    }
+
+    public function detail($id_rab_get)
+    {
+        // get data rab
+        $id_rab = Rab::find($id_rab_get);
+        $nama_rab =  $id_rab->nama;
+        $title = "Ubah Rancangan Anggaran Biaya (RAB) " . $nama_rab;
+        // get data array 
+        $id_rab_temps = unserialize($id_rab->id_rab_temp);
+        // cari data rab temp dari data array
+        $rab = array();
+        foreach ($id_rab_temps as $key => $value) {
+            // get data
+            $rab[$key] = RabTemp::with('barang')->where('id', $value)->get();
+        }
+
+        // get data kategori
+        $kategori = Kategori::orderBy('nama')->get();
+
+        return view('admin.rab.detail', compact('title', 'rab', 'kategori', 'id_rab_get', 'nama_rab'));
     }
 
     public function editHapus(Request $request)
@@ -178,21 +199,27 @@ class RabController extends Controller
         if ($query) {
             return redirect()->route('rab.index')->with('success', 'RAB berhasil diubah');
         } else {
-            return redirect()->back()->with('alert', 'RAB berhasil diubah ');
+            return redirect()->back()->with('alert', 'RAB gagal diubah ');
         }
     }
 
-    public function cetak($id_rab)
+    
+
+    public function acc(Request $request)
     {
-        $rab = Rab::find($id_rab);
-
-        $rab_temp = array();
-        foreach (unserialize($rab['id_rab_temp']) as $key => $value) {
-            // get data
-            $rab_temp[$key] = RabTemp::with('barang')->where('id', $value)->get();
+        $date = str_replace('/', '-', $request->tanggal);
+        $tanggal = date('Y-m-d', strtotime($date));
+        // update di tabel rab temporary
+        $query = Rab::where('id', $request->id)
+            ->update([
+                'status' => 1,
+                'updated_at' => $tanggal
+            ]);
+        if ($query) {
+            return redirect()->route('rab.index')->with('success', 'RAB berhasil diterima pimpinan');
+        } else {
+            return redirect()->back()->with('alert', 'RAB gagal diterima pimpinan ');
         }
-
-        $pdf = PDF::loadview('admin.rab.cetak', compact('rab_temp', 'rab'));
-        return $pdf->stream();
     }
+
 }

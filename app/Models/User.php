@@ -50,9 +50,4 @@ class User extends Authenticatable
     ];
 
   
-
-    public function agenda()
-    {
-        return $this->hasOne(Agenda::class, 'id', 'tujuan_orang');
-    }
 }

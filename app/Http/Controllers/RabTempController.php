@@ -117,6 +117,7 @@ class RabTempController extends Controller
                 'nama' => $request->nama,
                 // 'harga_total' => $request->harga_total,   
                 'id_rab_temp' => serialize($arr_id_temps),
+                'status' => 0,
                 'created_at' => Carbon::now()
             ]);
 

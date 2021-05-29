@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\CetakController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\RabController;
@@ -52,8 +53,14 @@ Route::group(['middleware' => ['role:admin']], function () {
     // kelola rab
     Route::get('/rab', [RabController::class, 'index'])->name('rab.index');
     Route::get('/rab/edit/{id}', [RabController::class, 'edit'])->name('rab.edit');
-    Route::get('/rab/cetak/{id}', [RabController::class, 'cetak'])->name('rab.cetak');
+    Route::get('/rab/detail/{id}', [RabController::class, 'detail'])->name('rab.detail');
+    Route::post('/rab/acc', [RabController::class, 'acc'])->name('rab.acc');
     Route::POST('/rab/delete/', [RabController::class, 'hapus'])->name('rab.delete');
+
+    // kelola cetak
+    Route::get('/rab/cetak/{id}', [CetakController::class, 'cetakItemRab'])->name('rab.cetak');
+    Route::get('/rab/cetakPO', [CetakController::class, 'cetakPO'])->name('rab.cetakPO');
+    Route::get('/rab/cetakDO', [CetakController::class, 'cetakDO'])->name('rab.cetakDO');
 
     // kelola edit rab
     Route::POST('/rab/edit/selesai/', [RabController::class, 'editSelesai'])->name('rab.edit.selesai');
