@@ -62,7 +62,7 @@
             <td>{{$value['harga']}}</td>
             <td>{{$value->kategori[0]['nama']}}</td>
             <td>
-              {{date('d-M-Y, H:m', strtotime($value['updated_at']))}} WIB
+              {{date('d-M-Y, H:i', strtotime($value['updated_at']))}} WIB
             </td>
 
 

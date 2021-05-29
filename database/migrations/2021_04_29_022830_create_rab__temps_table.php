@@ -16,6 +16,7 @@ class CreateRabTempsTable extends Migration
         Schema::create('rab_temps', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_barang');
+            $table->bigInteger('harga_barang');
             $table->bigInteger('kuantitas');
             $table->tinyInteger('is_selesai');
             $table->timestamps();

@@ -71,6 +71,8 @@ Route::group(['middleware' => ['role:admin']], function () {
 
     // kelola ajax
     Route::get('/GetBarangByKategori/{id}', [AjaxController::class, 'GetBarangByKategori'])->name('GetBarangByKategori');
+    Route::get('/GetSuplierByNamaBarang/{nama}', [AjaxController::class, 'GetSuplierByNamaBarang'])->name('GetSuplierByNamaBarang');
+    Route::get('/GetBarangById/{id}', [AjaxController::class, 'GetBarangById'])->name('GetBarangById');
 
 
 });

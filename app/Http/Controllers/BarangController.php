@@ -24,6 +24,8 @@ class BarangController extends Controller
             return $admin->hasRole('admin');
         });
         $barang = Barang::with('kategori', 'suplier')
+            ->orderBy('nama')
+            ->orderBy('harga')
             ->get();
         $kategori = Kategori::all();
         $suplier = Suplier::all();
@@ -33,7 +35,7 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         $query = Barang::insert([
-            'nama'=> $request->nama,
+            'nama'=> strtoupper($request->nama),
             'id_suplier' => $request->suplier,
             'harga' => $request->harga,
             'id_kategori' => $request->kategori,
@@ -57,7 +59,7 @@ class BarangController extends Controller
     {
         Barang::where('id', $request->id)
         ->update([
-            'nama'=> $request->nama,
+            'nama'=> strtoupper($request->nama),
             'id_suplier' => $request->suplier,
             'harga' => $request->harga,
             'id_kategori' => $request->kategori

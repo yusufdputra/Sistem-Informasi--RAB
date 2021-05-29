@@ -42,7 +42,7 @@
             <td>{{$key+1}}</td>
             <td>{{$value['nama']}}</td>
             <td>{{$harga_total[$key]}}</td>
-            <td>{{$value['created_at']}}</td>
+            <td>{{date("d-M-Y, H:i ", strtotime(($value->created_at)))}} WIB</td>
             <td>
               <a href="{{route('rab.edit', $value->id)}}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
               <a href="#hapus-modal" data-animation="sign" data-plugin="custommodal" data-id='{{$value->id}}' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-danger btn-sm hapus"><i class="fa fa-trash"></i></a>

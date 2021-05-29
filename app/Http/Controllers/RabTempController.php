@@ -6,6 +6,7 @@ use App\Models\Barang;
 use App\Models\Kategori;
 use App\Models\Rab;
 use App\Models\RabTemp;
+use App\Models\Suplier;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -31,12 +32,27 @@ class RabTempController extends Controller
 
     public function store(Request $request)
     {
-        $query = RabTemp::insert([
-            'id_barang' => $request->id_barang,
-            'kuantitas' => $request->kuantitas,
-            'created_at' => Carbon::now('+7:00')
-
+        $request->validate([
+            'harga_barang' => 'required',
         ]);
+        $cek = RabTemp::where('id_barang', $request->nama_suplier)
+            ->where('is_selesai', 0);
+        if (!$cek->exists()) {
+            $query = RabTemp::insert([
+                'id_barang' => $request->nama_suplier,
+                'kuantitas' => $request->kuantitas,
+                'harga_barang' => $request->harga_barang,
+                'created_at' => Carbon::now()
+            ]);
+        } else {
+            $query = RabTemp::where('id_barang', $request->nama_suplier)
+                ->update([
+                    'harga_barang' => $request->harga_barang,
+                ]);
+            RabTemp::where('id_barang', $request->nama_suplier)
+                ->increment('kuantitas', $request->kuantitas);
+        }
+
         if ($query) {
             return redirect()->back()->with('success', 'RAB berhasil ditambah');
         } else {
@@ -48,20 +64,32 @@ class RabTempController extends Controller
     {
         $barang = RabTemp::find($id)->barang;
         $rabTemp = RabTemp::find($id);
+        $supliers = Barang::with('suplier')
+            ->where('nama', $barang[0]['nama'])
+            ->get();
         $barangs = Barang::where('id_kategori', $barang[0]['id_kategori'])->get();
-        $data = compact('barang', 'rabTemp', 'barangs');
+        $data = compact('barang', 'rabTemp', 'barangs', 'supliers');
         return ($data);
     }
 
     public function update(Request $request)
     {
-        RabTemp::where('id', $request->id)
+        $request->validate([
+            'harga_barang' => 'required',
+        ]);
+        $query = RabTemp::where('id', $request->id)
             ->update([
-                'id_barang' => $request->id_barang,
+                'id_barang' => $request->nama_suplier,
                 'kuantitas' => $request->kuantitas,
+                'harga_barang' => $request->harga_barang,
+                'created_at' => Carbon::now()
             ]);
 
-        return redirect()->back()->with('success', 'RAB berhasil diubah');
+        if ($query) {
+            return redirect()->back()->with('success', 'RAB berhasil diubah');
+        } else {
+            return redirect()->back()->with('alert', 'RAB gagal diubah');
+        }
     }
 
     public function hapus(Request $request)
@@ -86,7 +114,8 @@ class RabTempController extends Controller
             $simpan = Rab::insert([
                 'nama' => $request->nama,
                 // 'harga_total' => $request->harga_total,   
-                'id_rab_temp' => serialize($arr_id_temps)
+                'id_rab_temp' => serialize($arr_id_temps),
+                'created_at' => Carbon::now()
             ]);
 
             if ($simpan) {
