@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\RabController;
 use App\Http\Controllers\RabTempController;
+use App\Http\Controllers\SuplierController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,13 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/barang/edit/{id}', [BarangController::class, 'edit'])->name('barang/edit');
     Route::POST('/barang/update/', [BarangController::class, 'update'])->name('barang.update');
     Route::POST('/barang/hapus/', [BarangController::class, 'hapus'])->name('barang.hapus');
+
+    // kelola suplier
+    Route::get('/suplier', [SuplierController::class, 'index'])->name('suplier.index');
+    Route::post('/suplier/store', [SuplierController::class, 'store'])->name('suplier.store');
+    Route::get('/suplier/edit/{id}', [SuplierController::class, 'edit'])->name('suplier/edit');
+    Route::POST('/suplier/update/', [SuplierController::class, 'update'])->name('suplier.update');
+    Route::POST('/suplier/hapus/', [SuplierController::class, 'hapus'])->name('suplier.hapus');
 
     // kelola rab
     Route::get('/rab', [RabController::class, 'index'])->name('rab.index');

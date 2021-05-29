@@ -10,22 +10,9 @@
         <div class="form-group ">
           <a href="#tambah-modal" data-animation="sign" data-plugin="custommodal" data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-primary m-l-10 waves-light  ">Tambah</a>
         </div>
-        <div class="form-group col-md-4">
-
-          <div class="input-group">
-            <div class="input-group-append">
-              <span class="input-group-text">Sorting</span>
-            </div>
-            <select required class="form-control " onchange="sorting()" id="sort_kategori" name="sort_kategori">
-              <option value="" selected>Pilih..</option>
-              @foreach ($kategori as $key=>$value)
-              <option value="{{$value->nama}}">{{strtoupper($value->nama)}}</option>
-              @endforeach
-            </select>
-
-          </div>
-        </div>
+    
       </div>
+      @endrole
 
       @if(\Session::has('alert'))
       <div class="alert alert-danger">
@@ -39,35 +26,29 @@
       </div>
       @endif
 
-      @endrole
+      
       <table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
 
         <thead>
           <tr>
             <th>No.</th>
-            <th>Nama barang</th>
-            <th>Suplier</th>
-            <th>Harga (Rp.)</th>
-            <th>Kategori</th>
-            <th>Tanggal Perubahan</th>
+            <th>Nama</th>
+            <th>Nomor HP</th>
+            <th>Alamat</th>
             <th>Aksi</th>
           </tr>
         </thead>
         <tbody>
-          @foreach ($barang AS $key=>$value)
+          @foreach ($supliers AS $key=>$value)
           <tr>
             <td>{{$key+1}}</td>
             <td>{{$value['nama']}}</td>
-            <td>{{$value->suplier[0]['nama']}}</td>
-            <td>{{$value['harga']}}</td>
-            <td>{{$value->kategori[0]['nama']}}</td>
-            <td>
-              {{date('d-M-Y, H:m', strtotime($value['updated_at']))}} WIB
-            </td>
+            <td>{{$value['nomor_hp']}}</td>
+            <td>{{$value['alamat']}}</td>
 
 
             <td>
-              <a href="#edit-modal" data-animation="sign" data-plugin="custommodal" data-id='{{$value->id}}' data-nama="{{$value['nama']}}" data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-success btn-sm modal_edit"><i class="fa fa-edit"></i></a>
+              <a href="#edit-modal" data-animation="sign" data-plugin="custommodal" data-id='{{$value->id}}' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-success btn-sm modal_edit"><i class="fa fa-edit"></i></a>
               <a href="#hapus-modal" data-animation="sign" data-plugin="custommodal" data-id='{{$value->id}}' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-danger btn-sm hapus"><i class="fa fa-trash"></i></a>
 
 
@@ -88,46 +69,31 @@
   <div class="custom-modal-text">
 
     <div class="text-center">
-      <h4 class="text-uppercase font-bold mb-0">Tambah barang</h4>
+      <h4 class="text-uppercase font-bold mb-0">Tambah Suplier</h4>
     </div>
     <div class="p-20 text-left">
-      <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="{{route('barang.store')}}" method="POST">
+      <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="{{route('suplier.store')}}" method="POST">
         {{csrf_field()}}
 
         <div class="form-group">
-          <label>Nama barang</label>
+          <label>Nama Suplier</label>
           <div class="col-xs-12">
             <input class="form-control" type="text" autocomplete="off" name="nama" required="" placeholder="Nama barang">
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="">Kategori Barang</label>
-          <div class="col-xs-12">
-            <select required class="form-control" name="kategori">
 
-              @foreach ($kategori as $key=>$value)
-              <option value="{{$value->id}}">{{$value->nama}}</option>
-              @endforeach
-            </select>
+        <div class="form-group">
+          <label for="">Nomor Hp</label>
+          <div class="col-xs-12">
+            <input class="form-control" type="text" autocomplete="off" name="nomor_hp" required="" placeholder="Nama Suplier">
           </div>
         </div>
 
         <div class="form-group">
-          <label for="">Nama Suplier</label>
+          <label for="">Alamat</label>
           <div class="col-xs-12">
-            <select required class="form-control" name="suplier">
-              @foreach ($suplier as $key=>$value)
-              <option value="{{$value->id}}">{{$value->nama}}</option>
-              @endforeach
-            </select>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="">Harga Barang</label>
-          <div class="col-xs-12">
-            <input class="form-control" min="0" type="number" autocomplete="off" name="harga" required="" placeholder="Harga Barang">
+            <textarea class="form-control"  type="text" autocomplete="off" name="alamat" required="" placeholder="Harga Barang"></textarea>
           </div>
         </div>
 
@@ -153,48 +119,33 @@
   <div class="custom-modal-text">
 
     <div class="text-center">
-      <h4 class="text-uppercase font-bold mb-0">Edit barang</h4>
+      <h4 class="text-uppercase font-bold mb-0">Edit Suplier</h4>
     </div>
     <div class="p-20 text-left">
 
-      <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="{{route('barang.update')}}" method="POST">
+      <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="{{route('suplier.update')}}" method="POST">
         {{csrf_field()}}
         <input type="hidden" name="id" id="edit_id">
 
         <div class="form-group">
-          <label>Nama barang</label>
+          <label>Nama Suplier</label>
           <div class="col-xs-12">
-            <input class="form-control" type="text" autocomplete="off" id="edit_nama" name="nama" required="" placeholder="Nama barang">
+            <input class="form-control" type="text" id="edit_nama" autocomplete="off" name="nama" required="" placeholder="Nama barang">
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="">Nomor Hp</label>
+          <div class="col-xs-12">
+            <input class="form-control" type="text" id="edit_nomor_hp" autocomplete="off" name="nomor_hp" required="" placeholder="Nama Suplier">
           </div>
         </div>
 
         <div class="form-group">
-          <label for="">Kategori Barang</label>
+          <label for="">Alamat</label>
           <div class="col-xs-12">
-            <select required class="form-control" id="edit_kategori" name="kategori">
-              @foreach ($kategori as $key=>$value)
-              <option value="{{$value->id}}">{{$value->nama}}</option>
-              @endforeach
-            </select>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="">Nama Suplier</label>
-          <div class="col-xs-12">
-           
-            <select required class="form-control" id="edit_suplier" name="suplier">
-              @foreach ($suplier as $key=>$value)
-              <option value="{{$value->id}}">{{$value->nama}}</option>
-              @endforeach
-            </select>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="">Harga Barang</label>
-          <div class="col-xs-12">
-            <input class="form-control" min="0" type="number" id="edit_harga" autocomplete="off" name="harga" required="" placeholder="Harga Barang">
+            <textarea class="form-control"  type="text" id="edit_alamat" autocomplete="off" name="alamat" required="" placeholder="Harga Barang"></textarea>
           </div>
         </div>
 
@@ -220,15 +171,15 @@
   <div class="custom-modal-text">
 
     <div class="text-center">
-      <h4 class="text-uppercase font-bold mb-0">Hapus barang</h4>
+      <h4 class="text-uppercase font-bold mb-0">Hapus Suplier</h4>
     </div>
     <div class="p-20">
 
-      <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="{{route('barang.hapus')}}" method="POST">
+      <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="{{route('suplier.hapus')}}" method="POST">
         {{csrf_field()}}
         <div>
           <input type="hidden" id='id_hapus' name='id'>
-          <h5 id="exampleModalLabel">Apakah anda yakin ingin mengapus barang ini?</h5>
+          <h5 id="exampleModalLabel">Apakah anda yakin ingin mengapus suplier ini?</h5>
         </div>
 
         <div class="form-group text-center m-t-30">
@@ -252,16 +203,15 @@
     $('#edit_id').val(id)
 
     $.ajax({
-      url: '{{url("barang/edit")}}/' + id,
+      url: '{{url("suplier/edit")}}/' + id,
       type: 'GET',
       dataType: 'json',
       success: 'success',
       success: function(data) {
         $('#edit_id').val(id)
         $('#edit_nama').val(data['nama'])
-        $('#edit_suplier').val(data['id_suplier'])
-        $('#edit_harga').val(data['harga'])
-        $('#edit_kategori').val(data['id_kategori'])
+        $('#edit_nomor_hp').val(data['nomor_hp'])
+        $('#edit_alamat').val(data['alamat'])
 
       },
       error: function(data) {
@@ -276,18 +226,7 @@
     $('#id_hapus').val(id);
   });
 
-  // sorting 
-  function sorting() {
-    const sort_kategori = document.getElementById('sort_kategori').value
-    $('#datatable').DataTable()
 
-    function filterData() {
-      $('#datatable').DataTable().search(
-        sort_kategori
-      ).draw()
-    }
-    filterData()
-  }
 </script>
 
 

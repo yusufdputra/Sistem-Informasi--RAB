@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\Kategori;
+use App\Models\Suplier;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class BarangController extends Controller
@@ -21,22 +23,22 @@ class BarangController extends Controller
         $pegawai = $users->reject(function ($admin, $key) {
             return $admin->hasRole('admin');
         });
-        $barang = Barang::select('barangs.*', 'kategoris.nama as nama_kategori', 'kategoris.id as id_ktg')
-            ->join('kategoris', 'barangs.id_kategori', '=', 'kategoris.id')
-            ->orderBy('barangs.id_kategori', 'ASC')
-            ->orderBy('barangs.harga', 'ASC')
+        $barang = Barang::with('kategori', 'suplier')
             ->get();
         $kategori = Kategori::all();
-        return view('admin.barang.index', compact('pegawai', 'title', 'barang', 'kategori'));
+        $suplier = Suplier::all();
+        return view('admin.barang.index', compact('pegawai', 'title', 'barang', 'kategori', 'suplier'));
     }
 
     public function store(Request $request)
     {
         $query = Barang::insert([
             'nama'=> $request->nama,
-            'suplier' => $request->suplier,
+            'id_suplier' => $request->suplier,
             'harga' => $request->harga,
             'id_kategori' => $request->kategori,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
 
         ]);
         if ($query) {
@@ -56,7 +58,7 @@ class BarangController extends Controller
         Barang::where('id', $request->id)
         ->update([
             'nama'=> $request->nama,
-            'suplier' => $request->suplier,
+            'id_suplier' => $request->suplier,
             'harga' => $request->harga,
             'id_kategori' => $request->kategori
         ]);

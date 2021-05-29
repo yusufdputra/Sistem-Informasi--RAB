@@ -38,6 +38,10 @@
         </li>
 
         <li>
+          <a href="{{route ('suplier.index')}}" class="waves-effect"><i class=" mdi mdi-hexagon-multiple"></i> <span> Suplier </span> </a>
+        </li>
+
+        <li>
           <a href="{{route ('barang.index')}}" class="waves-effect"><i class="mdi mdi-package-variant-closed"></i> <span> Barang </span> </a>
         </li>
         <li>

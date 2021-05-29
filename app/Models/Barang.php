@@ -19,6 +19,11 @@ class Barang extends Model
     }
     public function kategori()
     {
-        return $this->hasMany(Kategori::class, 'id', 'id_kategori');
+        return $this->hasMany(Kategori::class, 'id', 'id_kategori')->withTrashed();
+    }
+
+    public function suplier()
+    {
+        return $this->hasMany(Suplier::class, 'id', 'id_suplier')->withTrashed();
     }
 }
