@@ -17,7 +17,7 @@ class CreateRabsTable extends Migration
             $table->id();
             $table->string('nama');
             $table->string('id_rab_temp');
-            $table->tinyInteger('is_acc');
+            $table->tinyInteger('status');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });
