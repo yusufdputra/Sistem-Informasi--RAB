@@ -24,7 +24,7 @@ class RabController extends Controller
         $pegawai = $users->reject(function ($admin, $key) {
             return $admin->hasRole('admin');
         });
-        $rab = Rab::all();
+        $rab = Rab::where('status', '!=', 2)->get();
         // hitung total harga
         $harga_total = array();
         foreach ($rab as $key => $value) {
@@ -203,7 +203,6 @@ class RabController extends Controller
         }
     }
 
-    
 
     public function acc(Request $request)
     {
@@ -219,6 +218,20 @@ class RabController extends Controller
             return redirect()->route('rab.index')->with('success', 'RAB berhasil diterima pimpinan');
         } else {
             return redirect()->back()->with('alert', 'RAB gagal diterima pimpinan ');
+        }
+    }
+
+    public function selesai($id)
+    {
+        $query = Rab::where('id', $id)
+            ->update([
+                'status' => 2
+            ]);
+
+        if ($query) {
+            return redirect()->back()->with('success', 'RAB berhasil diselesaikan, lihat riwayat.');
+        } else {
+            return redirect()->back()->with('alert', 'RAB gagal diselesaikan');
         }
     }
 

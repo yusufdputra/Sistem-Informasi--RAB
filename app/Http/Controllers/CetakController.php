@@ -18,6 +18,7 @@ class CetakController extends Controller
     {
         $rab = Rab::find($id_rab);
 
+
         $rab_temp = array();
         foreach (unserialize($rab['id_rab_temp']) as $key => $value) {
             // get data
@@ -30,36 +31,34 @@ class CetakController extends Controller
     public function cetakPO()
     {
         $rabs = Rab::where('status', 1)->get();
-
-        $rab_temp = array();
-        foreach ($rabs as $rkey => $rab) {
-            foreach (unserialize($rab->id_rab_temp) as $key => $value) {
-                // get data
-                $rab_temp[$rkey][$key] = RabTemp::with('barang')
-                ->where('id', $value)
-                ->first();
+        if (!$rabs->isEmpty()) {
+            $rab_temp = array();
+            foreach ($rabs as $rkey => $rab) {
+                foreach (unserialize($rab->id_rab_temp) as $key => $value) {
+                    // get data
+                    $rab_temp[$rkey][$key] = RabTemp::with('barang')
+                        ->where('id', $value)
+                        ->first();
+                }
             }
+            $pdf = PDF::loadview('admin.cetak.rabpo', compact('rab_temp', 'rab', 'rabs'))->setPaper('a4', 'landscape');
+            return $pdf->stream();
+        } else {
+            return redirect()->back()->with('alert', 'Tidak Ada Data');
         }
-
-        $pdf = PDF::loadview('admin.cetak.rabpo', compact('rab_temp', 'rab', 'rabs'))->setPaper('a4', 'landscape');
-        return $pdf->stream();
     }
 
-    public function cetakDO()
+    public function cetakDO($id)
     {
-        $rabs = Rab::where('status', 1)->get();
+        $rab = Rab::find($id);
 
         $rab_temp = array();
-        foreach ($rabs as $rkey => $rab) {
-            foreach (unserialize($rab->id_rab_temp) as $key => $value) {
-                // get data
-                $rab_temp[$rkey][$key] = RabTemp::with('barang')
-                ->where('id', $value)
-                ->first();
-            }
+        foreach (unserialize($rab['id_rab_temp']) as $key => $value) {
+            // get data
+            $rab_temp[$key] = RabTemp::with('barang')->where('id', $value)->get();
         }
 
-        $pdf = PDF::loadview('admin.cetak.rabdo', compact('rab_temp', 'rab', 'rabs'))->setPaper('a4', 'potrait');
+        $pdf = PDF::loadview('admin.cetak.rabdo', compact('rab_temp', 'rab'))->setPaper('a4', 'potrait');
         return $pdf->stream();
     }
 }

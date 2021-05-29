@@ -14,9 +14,7 @@
         <div class="form-group ">
           <a href="{{route('rab.cetakPO')}}" target="_BLANK" class="btn btn-purple m-l-10 waves-light  ">Cetak Pre Order</a>
         </div>
-        <div class="form-group ">
-          <a href="{{route('rab.cetakDO')}}" target="_BLANK" class="btn btn-warning m-l-10 waves-light  ">Cetak Delivery Order</a>
-        </div>
+        
       </div>
 
       @if(\Session::has('alert'))
@@ -69,6 +67,8 @@
               <a href="#terima-modal" data-animation="sign" data-plugin="custommodal" data-id='{{$value->id}}' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-secondary btn-sm terima"><i class=" fa fa-check"></i></a>
               @elseif ($value['status'] == 1)
               <a href="{{route('rab.detail', $value->id)}}" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>
+              <a href="{{route('rab.cetakDO', $value->id )}}" target="_BLANK" class="btn btn-custom btn-sm  "><i class="fa fa-print"> </i> Delivery Order</a>
+              <a href="{{route('rab.selesai', $value->id)}}" class="btn btn-success btn-sm"><i class="fa fa-check"></i>Selesai</a>
               @elseif ($value['status'] == 2)
               Selesai
               @endif

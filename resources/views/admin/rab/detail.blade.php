@@ -6,7 +6,7 @@
     <div class="card-box table-responsive">
       @role('admin')
       <div class="align-items-center">
-        <a href="{{route('rab.index')}}"  class="btn btn-danger m-l-10 waves-light  mb-5">Kembali</a>
+        <a href="#" onclick="window.history.back()" class="btn btn-danger m-l-10 waves-light  mb-5">Kembali</a>
 
       </div>
       @endrole

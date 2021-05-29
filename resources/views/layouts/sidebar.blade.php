@@ -48,15 +48,12 @@
           <a href="{{route ('rab.index')}}" class="waves-effect"><i class="mdi mdi-calculator"></i> <span> RAB </span> </a>
         </li>
 
-        @endrole
-
-        @role("pegawai")
-
         <li>
-          <a href="{{route ('agenda.index')}}" class="waves-effect"><i class="mdi mdi-calculator"></i> <span> Agenda </span> </a>
+          <a href="{{route ('riwayat.index')}}" class="waves-effect"><i class="mdi mdi-history"></i> <span> Riwayat RAB </span> </a>
         </li>
 
         @endrole
+
 
 
 

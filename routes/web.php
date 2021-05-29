@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\RabController;
 use App\Http\Controllers\RabTempController;
+use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\SuplierController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -49,18 +50,22 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/suplier/edit/{id}', [SuplierController::class, 'edit'])->name('suplier/edit');
     Route::POST('/suplier/update/', [SuplierController::class, 'update'])->name('suplier.update');
     Route::POST('/suplier/hapus/', [SuplierController::class, 'hapus'])->name('suplier.hapus');
+    
+    // kelola riwayat rab
+    Route::get('/riwayat', [RiwayatController::class, 'index'])->name('riwayat.index');
 
     // kelola rab
     Route::get('/rab', [RabController::class, 'index'])->name('rab.index');
     Route::get('/rab/edit/{id}', [RabController::class, 'edit'])->name('rab.edit');
     Route::get('/rab/detail/{id}', [RabController::class, 'detail'])->name('rab.detail');
+    Route::get('/rab/selesai/{id}', [RabController::class, 'selesai'])->name('rab.selesai');
     Route::post('/rab/acc', [RabController::class, 'acc'])->name('rab.acc');
     Route::POST('/rab/delete/', [RabController::class, 'hapus'])->name('rab.delete');
 
     // kelola cetak
     Route::get('/rab/cetak/{id}', [CetakController::class, 'cetakItemRab'])->name('rab.cetak');
     Route::get('/rab/cetakPO', [CetakController::class, 'cetakPO'])->name('rab.cetakPO');
-    Route::get('/rab/cetakDO', [CetakController::class, 'cetakDO'])->name('rab.cetakDO');
+    Route::get('/rab/cetakDO/{id}', [CetakController::class, 'cetakDO'])->name('rab.cetakDO');
 
     // kelola edit rab
     Route::POST('/rab/edit/selesai/', [RabController::class, 'editSelesai'])->name('rab.edit.selesai');

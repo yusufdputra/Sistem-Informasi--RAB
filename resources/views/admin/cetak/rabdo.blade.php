@@ -2,119 +2,141 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cetak Rab</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cetak Rab</title>
 
-  <style>
+    <style>
     html,
     body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
+        margin: 0;
+        padding: 0;
+        height: 100%;
     }
 
     #container {
-      min-height: 100%;
-      position: relative;
+        min-height: 100%;
+        position: relative;
     }
 
     #header {
-      padding-left: 30px;
-      padding-right: 30px;
-      padding-top: 30px;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 30px;
     }
 
     #body {
-      padding: 30px;
-      padding-bottom: 60px;
-      /* Height of the footer */
+        padding: 30px;
+        padding-bottom: 60px;
+        /* Height of the footer */
     }
 
     #footer {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      height: 60px;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 60px;
     }
-  </style>
+    </style>
 
 </head>
 
 <body>
 
-  <div id="container">
-    <div id="header">
-      <div style="float: left;">
-        <img height="60px" src="..\public\adminto\images\brand\sejahtera.png" alt="">
-      </div>
-      <div style="float: right; ">
-        <img height="40px" src="..\public\adminto\images\brand\ims.jpg" alt="">
-      </div>
-      <div style="text-align: center; ">
-        <span style="font-size: 24px; font-weight: bold;">PT. SEJAHTERA MANDIRI PEKANBARU</span> <br>
-        <span style="font-size: 18px; font-weight: bold; color: blue; ">RANCANGAN ANGGARAN BIAYA</span><br>
-        <br>
-        <hr>
-      </div>
+    <div id="container">
+        <div id="header">
+            <div style="float: left;">
+                <img height="60px" src="..\public\adminto\images\brand\sejahtera.png" alt="">
+            </div>
+            <div style="float: right; ">
+                <img height="40px" src="..\public\adminto\images\brand\ims.jpg" alt="">
+            </div>
+            <div style="text-align: center; ">
+                <span style="font-size: 24px; font-weight: bold;">PT. SEJAHTERA MANDIRI PEKANBARU</span> <br>
+                <span style="font-size: 18px; font-weight: bold; color: blue; ">RANCANGAN ANGGARAN BIAYA</span><br>
+                <br>
+                <hr>
+            </div>
 
-
-    </div>
-    <div id="body">
-
-      <p>Berikut ini kami sampaikan terkait orderan tanggal {{date('d-M-Y', strtotime($rab['created_at']))}} untuk
-        dapat diproses.</p>
-
-      <div style="font-size: 12px;">
-        <div style="font-size: 12px;">
-          @foreach($rab_temp as $key => $value)
-          <table id="datatable" style="width: 100%; border-style: solid !important; border-collapse: collapse; " border="1">
-            <thead>
-              <tr>
-                <td style="padding: 5px;" colspan="3"><strong>Nama Proyek: {{strtoupper($rabs[$key]['nama'])}}</strong></td>
-              </tr>
-              <tr>
-                <th style="padding: 5px;">No.</th>
-                <th>Nama Barang</th>
-                <th>Kuantitas</th>
-              </tr>
-            </thead>
-            <tbody style="text-align: center !important">
-
-              @foreach($value as $v => $rab)
-              <tr>
-                <td style="padding: 5px; width: 20px;">{{$v+1}}</td>
-                <td>{{$rab->barang[0]['nama']}}</td>
-                <td>{{$rab->kuantitas}}</td>
-              </tr>
-              @endforeach
-
-            </tbody>
-          </table>
-          @endforeach
-        </div>
-        <br><br>
-
-        <div style="font-size: 12px;">
-          <p style="text-align: right;">
-            <strong>
-              Pekanbaru, {{date('d-M-Y', strtotime(now()))}}
-              <br>
-              <br>
-              Hormat Kami
-              <br>
-              PT. Sejahtera Mandiri Pekanbaru
-            </strong>
-          </p>
 
         </div>
+        <div id="body">
+
+            <p>Berikut ini kami sampaikan terkait orderan tanggal {{date('d-M-Y', strtotime($rab['created_at']))}} untuk
+                dapat diproses.</p>
+
+            <div style="font-size: 12px;">
+                <table style="border: 1px;">
+                    <thead></thead>
+                    <tbody>
+
+                        <tr>
+                            <td>Nama Proyek</td>
+                            <td style="padding-left: 50px;">:</td>
+                            <td>{{strtoupper($rab['nama'])}}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Tanggal Pemesanan</td>
+                            <td style="padding-left: 50px;">:</td>
+                            <td>{{date('d-M-Y', strtotime($rab['created_at']))}}</td>
+                        </tr>
+
+                    </tbody>
+                    </td>
+                </table>
+
+                <br>
+
+                <div style="font-size: 12px;">
+                    <table style="width: 100%; border-style: solid !important; border-collapse: collapse; " border="1">
+                        <thead>
+                            <tr>
+                                <th style="padding: 5px;">No.</th>
+                                <th>Nama Barang</th>
+                                <th>Kuantitas</th>
+                            </tr>
+                        </thead>
+                        <tbody style="text-align: center !important">
+                           
+                            @foreach($rab_temp as $key => $value)
+                          
+                            <tr>
+                                <td style="padding: 5px;">{{$key+1}}</td>
+                                <td>{{$value[0]->barang[0]->nama}}</td>
+                                <td>{{$value[0]['kuantitas']}}</td>
+
+                            </tr>
+
+                            @endforeach
+
+                        </tbody>
+                        </td>
+                    </table>
+                </div>
+                <br><br>
+
+                <div style="font-size: 12px;">
+                    <p style="text-align: right;">
+                        <strong>
+                            Pekanbaru, {{date('d-M-Y', strtotime(now()))}}
+                            <br>
+                            <br>
+                            Hormat Kami
+                            <br>
+                            PT. Sejahtera Mandiri Pekanbaru
+                        </strong>
+                    </p>
+
+                </div>
 
 
-      </div>
-      <div id="footer">
-        <img height="60px" src="..\public\adminto\images\brand\footer.jpg" alt="">
-      </div>
-    </div>
+            </div>
+            <div id="footer">
+                <img height="60px" src="..\public\adminto\images\brand\footer.jpg" alt="">
+            </div>
+        </div>
+
 </body>
 
 </html>
