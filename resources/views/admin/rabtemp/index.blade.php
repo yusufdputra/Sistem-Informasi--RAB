@@ -121,9 +121,9 @@
         </div>
 
         <div class="form-group">
-          <label for="">Harga Barang</label>
+          <!-- <label for="">Harga Barang</label> -->
           <div class="col-xs-12">
-            <input class="form-control" type="text" readonly id="harga_barang" autocomplete="off" name="harga_barang" required="" placeholder="Harga Barang">
+            <input class="form-control" type="hidden" readonly id="harga_barang" autocomplete="off" name="harga_barang" required="" placeholder="Harga Barang">
           </div>
         </div>
 
@@ -196,9 +196,9 @@
         </div>
 
         <div class="form-group">
-          <label for="">Harga Barang</label>
+          <!-- <label for="">Harga Barang</label> -->
           <div class="col-xs-12">
-            <input class="form-control" min="0" type="text" readonly id="edit_harga_barang" autocomplete="off" name="harga_barang" required="" placeholder="Harga Barang">
+            <input class="form-control" min="0" type="hidden" readonly id="edit_harga_barang" autocomplete="off" name="harga_barang" required="" placeholder="Harga Barang">
           </div>
         </div>
 
@@ -340,7 +340,7 @@
         var opt_suplier_empt = new Option('Pilih..')
         $('#nama_suplier').append(opt_suplier_empt)
         data.forEach(element => {
-          var opt_barang = new Option(element['suplier'][0]['nama'], element['id'])
+          var opt_barang = new Option(element['suplier'][0]['nama'] + ' - Rp. '+ element['harga'], element['id'])
           // add to option nama_barang
           $('#nama_suplier').append(opt_barang)
 
@@ -365,7 +365,6 @@
       success: 'success',
       success: function(data) {
         $('#harga_barang').val(data['harga'])
-        console.log(data)
       },
       error: function(data) {
         $('#harga_barang').val('')
@@ -410,7 +409,8 @@
         var opt_supl_empt = new Option('Pilih..')
         $('#edit_nama_suplier').append(opt_supl_empt)
         data['supliers'].forEach(element => {
-          var opt_suplier = new Option(element['suplier'][0]['nama'], element['id'])
+
+          var opt_suplier = new Option(element['suplier'][0]['nama'] + ' - Rp. '+ element['harga'], element['id'])
           // add to option suplier
           $('#edit_nama_suplier').append(opt_suplier)
         });
@@ -463,7 +463,7 @@
         var opt_suplier_empt = new Option('Pilih..')
         $('#edit_nama_suplier').append(opt_suplier_empt)
         data.forEach(element => {
-          var opt_barang = new Option(element['suplier'][0]['nama'], element['id'])
+          var opt_barang = new Option(element['suplier'][0]['nama'] + ' - Rp. '+ element['harga'], element['id'])
           // add to option nama_barang
           $('#edit_nama_suplier').append(opt_barang)
 
