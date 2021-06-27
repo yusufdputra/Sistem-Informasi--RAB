@@ -36,6 +36,7 @@
                         <th>Nama</th>
                         <th>Nomor HP</th>
                         <th>Alamat</th>
+                        <th>Keterangan</th>
                         @role('admin')
                         <th>Aksi</th>
                         @endrole
@@ -48,6 +49,7 @@
                         <td>{{$value['nama']}}</td>
                         <td>{{$value['nomor_hp']}}</td>
                         <td>{{$value['alamat']}}</td>
+                        <td>{{$value['keterangan']}}</td>
 
                         @role('admin')
                         <td>
@@ -109,6 +111,14 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label for="">Keterangan</label>
+                    <div class="col-xs-12">
+                        <textarea class="form-control" type="text" autocomplete="off" name="keterangan" required=""
+                            placeholder="Keterangan Suplier"></textarea>
+                    </div>
+                </div>
+
                 <div class="form-group text-center m-t-30">
                     <div class="col-xs-12">
                         <button class="btn btn-success btn-bordred btn-block waves-effect waves-light"
@@ -163,6 +173,14 @@
                     <div class="col-xs-12">
                         <textarea class="form-control" type="text" id="edit_alamat" autocomplete="off" name="alamat"
                             required="" placeholder="Harga Barang"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Keterangan</label>
+                    <div class="col-xs-12">
+                        <textarea class="form-control" type="text" id="edit_keterangan" autocomplete="off" name="keterangan" required=""
+                            placeholder="Keterangan Suplier"></textarea>
                     </div>
                 </div>
 
@@ -233,6 +251,7 @@ $('.modal_edit').click(function() {
             $('#edit_nama').val(data['nama'])
             $('#edit_nomor_hp').val(data['nomor_hp'])
             $('#edit_alamat').val(data['alamat'])
+            $('#edit_keterangan').val(data['keterangan'])
 
         },
         error: function(data) {

@@ -30,6 +30,7 @@ class SuplierController extends Controller
             'nama'=> $request->nama,
             'nomor_hp'=> $request->nomor_hp,
             'alamat'=> $request->alamat,
+            'keterangan'=> $request->keterangan,
         ]);
         if ($query) {
             return redirect()->back()->with('success', 'Suplier berhasil ditambah');
@@ -50,6 +51,7 @@ class SuplierController extends Controller
             'nama'=> $request->nama,
             'nomor_hp'=> $request->nomor_hp,
             'alamat'=> $request->alamat,
+            'keterangan'=> $request->keterangan,
         ]);
 
         return redirect()->back()->with('success', 'Suplier berhasil diubah');

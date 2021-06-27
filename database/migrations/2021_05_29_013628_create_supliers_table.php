@@ -18,6 +18,7 @@ class CreateSupliersTable extends Migration
             $table->string('nama');
             $table->string('nomor_hp');
             $table->string('alamat');
+            $table->string('keterangan');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

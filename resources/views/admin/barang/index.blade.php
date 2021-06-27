@@ -129,7 +129,7 @@
                     <div class="col-xs-12">
                         <select required class="form-control" name="suplier">
                             @foreach ($suplier as $key=>$value)
-                            <option value="{{$value->id}}">{{$value->nama}}</option>
+                            <option value="{{$value->id}}">{{$value->nama}} - {{$value->keterangan}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -200,7 +200,7 @@
 
                         <select required class="form-control" id="edit_suplier" name="suplier">
                             @foreach ($suplier as $key=>$value)
-                            <option value="{{$value->id}}">{{$value->nama}}</option>
+                            <option value="{{$value->id}}">{{$value->nama}} - {{$value->keterangan}}</option>
                             @endforeach
                         </select>
                     </div>

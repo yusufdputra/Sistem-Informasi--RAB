@@ -112,7 +112,7 @@
         </div>
 
         <div class="form-group">
-          <label>Nama suplier</label>
+          <label>Nama suplier - Harga Barang</label>
           <div class="col-xs-12">
             <select required class="form-control" id="nama_suplier" name="nama_suplier">
               <option disabled selected>Pilih..</option>
@@ -187,7 +187,7 @@
         </div>
 
         <div class="form-group">
-          <label>Nama suplier</label>
+          <label>Nama suplier - Harga Barang</label>
           <div class="col-xs-12">
             <select required class="form-control" id="edit_nama_suplier" name="nama_suplier">
               <option disabled selected>Pilih..</option>
