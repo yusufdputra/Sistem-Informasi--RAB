@@ -17,13 +17,11 @@
     <script src="{{asset('adminto/js/modernizr.min.js')}}"></script>
 
     <!-- DataTables -->
-    <link href="{{asset('adminto/plugins/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet"
-        type="text/css" />
+    <link href="{{asset('adminto/plugins/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('adminto/plugins/datatables/buttons.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
 
 
-    <link href="{{asset('adminto/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css')}}"
-        rel="stylesheet">
+    <link href="{{asset('adminto/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css')}}" rel="stylesheet">
     <!-- Notification css (Toastr) -->
     <link href="{{asset('adminto/plugins/toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />
 
@@ -45,16 +43,13 @@
     <!-- @toastr_css -->
 
     <style>
-    .p1 {
-
-        font-size: 32px;
-        font-family: "Times New Roman", Times, serif;
-
-    }
-
-    .home {
-        text-align: justify;
-    }
+        .p1 {
+            font-size: 32px;
+            font-family: "Times New Roman", Times, serif;
+        }
+        .home {
+            text-align: justify;
+        }
     </style>
 
 </head>

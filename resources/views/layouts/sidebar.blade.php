@@ -33,6 +33,11 @@
           <a href="{{('/')}}" class="waves-effect"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
         </li>
         @role('admin')
+
+        <li>
+          <a href="{{route ('user.index')}}" class="waves-effect"><i class=" mdi  mdi-account-multiple"></i> <span> Kelola Pengguna </span> </a>
+        </li>
+
         <li>
           <a href="{{route ('kategori.index')}}" class="waves-effect"><i class="mdi mdi-group"></i> <span> Kategori </span> </a>
         </li>
@@ -48,6 +53,23 @@
           <a href="{{route ('rab.index')}}" class="waves-effect"><i class="mdi mdi-calculator"></i> <span> RAB </span> </a>
         </li>
 
+        <li>
+          <a href="{{route ('riwayat.index')}}" class="waves-effect"><i class="mdi mdi-history"></i> <span> Riwayat RAB </span> </a>
+        </li>
+        @endrole
+
+        @role('pimpinan')
+        <li>
+          <a href="{{route ('kategori.index')}}" class="waves-effect"><i class="mdi mdi-group"></i> <span> Kategori </span> </a>
+        </li>
+
+        <li>
+          <a href="{{route ('suplier.index')}}" class="waves-effect"><i class=" mdi mdi-hexagon-multiple"></i> <span> Suplier </span> </a>
+        </li>
+
+        <li>
+          <a href="{{route ('barang.index')}}" class="waves-effect"><i class="mdi mdi-package-variant-closed"></i> <span> Barang </span> </a>
+        </li>
         <li>
           <a href="{{route ('riwayat.index')}}" class="waves-effect"><i class="mdi mdi-history"></i> <span> Riwayat RAB </span> </a>
         </li>

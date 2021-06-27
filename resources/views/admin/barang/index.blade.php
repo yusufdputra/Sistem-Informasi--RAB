@@ -52,7 +52,9 @@
                         <th>Harga (Rp.)</th>
                         <th>Kategori</th>
                         <th>Tanggal Penginputan</th>
+                        @role('admin')
                         <th>Aksi</th>
+                        @endrole
                     </tr>
                 </thead>
                 <tbody>
@@ -66,8 +68,7 @@
                         <td>
                             {{date('d-M-Y, H:i', strtotime($value['updated_at']))}} WIB
                         </td>
-
-
+                        @role('admin')
                         <td>
                             <a href="#edit-modal" data-animation="sign" data-plugin="custommodal"
                                 data-id='{{$value->id}}' data-nama="{{$value['nama']}}" data-overlaySpeed="100"
@@ -79,6 +80,7 @@
 
 
                         </td>
+                        @endrole
                     </tr>
                     @endforeach
                 </tbody>

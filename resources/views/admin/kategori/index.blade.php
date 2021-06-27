@@ -31,7 +31,9 @@
                     <tr>
                         <th>No.</th>
                         <th>Nama Kategori</th>
+                        @role('admin')
                         <th>Aksi</th>
+                        @endrole
                     </tr>
                 </thead>
                 <tbody>
@@ -39,6 +41,7 @@
                     <tr>
                         <td>{{$key+1}}</td>
                         <td>{{$value['nama']}}</td>
+                        @role('admin')
                         <td>
                             <a href="#edit-modal" data-animation="sign" data-plugin="custommodal"
                                 data-id='{{$value->id}}' data-nama="{{$value['nama']}}" data-overlaySpeed="100"
@@ -50,6 +53,7 @@
 
 
                         </td>
+                        @endrole
                     </tr>
                     @endforeach
                 </tbody>

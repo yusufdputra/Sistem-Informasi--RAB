@@ -36,7 +36,9 @@
                         <th>Nama</th>
                         <th>Nomor HP</th>
                         <th>Alamat</th>
+                        @role('admin')
                         <th>Aksi</th>
+                        @endrole
                     </tr>
                 </thead>
                 <tbody>
@@ -47,7 +49,7 @@
                         <td>{{$value['nomor_hp']}}</td>
                         <td>{{$value['alamat']}}</td>
 
-
+                        @role('admin')
                         <td>
                             <a href="#edit-modal" data-animation="sign" data-plugin="custommodal"
                                 data-id='{{$value->id}}' data-overlaySpeed="100" data-overlayColor="#36404a"
@@ -58,6 +60,7 @@
 
 
                         </td>
+                        @endrole
                     </tr>
                     @endforeach
                 </tbody>
