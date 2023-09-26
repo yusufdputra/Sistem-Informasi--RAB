@@ -2,18 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\BarangImport;
 use App\Models\Barang;
 use App\Models\Kategori;
 use App\Models\Suplier;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BarangController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function download($file)  {
+        $filePath = public_path("file/{$file}");
+
+        if (file_exists($filePath)) {
+            // Menggunakan helper response() untuk mengatur header dan mengirim file
+            return response()->file($filePath);
+        } else {
+            abort(404);
+        }
     }
 
     public function index()
@@ -79,5 +92,11 @@ class BarangController extends Controller
         }else{
             return redirect()->back()->with('alert', 'Gagal menghapus Barang');
         }
+    }
+
+    public function import(Request $request) {
+        Excel::import(new BarangImport, $request->file('file'));
+        return back();
+        
     }
 }

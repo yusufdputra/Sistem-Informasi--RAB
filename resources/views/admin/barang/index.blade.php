@@ -8,6 +8,10 @@
 
             <div class="form-row">
                 <div class="form-group ">
+                    <a href="#import-modal" data-animation="sign" data-plugin="custommodal" data-overlaySpeed="100"
+                        data-overlayColor="#36404a" class="btn btn-success m-l-10 waves-light  ">Import Data</a>
+                </div>
+                <div class="form-group ">
                     <a href="#tambah-modal" data-animation="sign" data-plugin="custommodal" data-overlaySpeed="100"
                         data-overlayColor="#36404a" class="btn btn-primary m-l-10 waves-light  ">Tambah</a>
                 </div>
@@ -273,6 +277,47 @@
                             class="   btn btn-primary btn-bordred btn-block waves-effect waves-light">Tidak</button>
                         <button class="btn btn-danger btn-bordred btn-block waves-effect waves-light"
                             type="submit">Hapus</button>
+                    </div>
+                </div>
+
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+<div id="import-modal" class="modal-demo">
+    <button type="button" class="close" onclick="Custombox.close();">
+        <span>&times;</span><span class="sr-only">Close</span>
+    </button>
+
+    <div class="custom-modal-text">
+
+        <div class="text-center">
+            <h4 class="text-uppercase font-bold mb-0">Import data barang</h4>
+        </div>
+        <div class="p-20 text-left">
+            <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="{{route('barang.import')}}"
+                method="POST">
+                {{csrf_field()}}
+
+                <p>Gunakan format file ini untuk melakukan import data: <a href="{{ route('download.file', ['file' => 'rab-import-barang.xlsx']) }}">Unduh File</a>
+                </p>
+
+                <div class="form-group">
+                    <label>Pilih file</label>
+                    <div class="col-xs-12">
+                        <input class="form-control" type="file"  accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" name="file" required>
+                    </div>
+                </div>
+
+
+                <div class="form-group text-center m-t-30">
+                    <div class="col-xs-12">
+                        <button class="btn btn-success btn-bordred btn-block waves-effect waves-light"
+                            type="submit">Submit</button>
                     </div>
                 </div>
 

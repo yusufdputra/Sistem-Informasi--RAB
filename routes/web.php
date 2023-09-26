@@ -52,6 +52,8 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/barang/edit/{id}', [BarangController::class, 'edit'])->name('barang/edit');
     Route::POST('/barang/update/', [BarangController::class, 'update'])->name('barang.update');
     Route::POST('/barang/hapus/', [BarangController::class, 'hapus'])->name('barang.hapus');
+    Route::POST('/barang/import/', [BarangController::class, 'import'])->name('barang.import');
+    Route::get('/download/{file}', [BarangController::class, 'download'])->name('download.file');
 
     // kelola suplier
     Route::post('/suplier/store', [SuplierController::class, 'store'])->name('suplier.store');
