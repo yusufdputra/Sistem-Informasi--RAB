@@ -11,10 +11,10 @@
                 <div class="form-group ">
                     <a href="{{route('rabtemp.index')}}" class="btn btn-primary m-l-10 waves-light ">Tambah</a>
                 </div>
-                <div class="form-group ">
-                    <a href="{{route('rab.cetakPO')}}" target="_BLANK" class="btn btn-purple m-l-10 waves-light  ">Cetak
-                        Purchase Order</a>
-                </div>
+                <!--<div class="form-group ">-->
+                <!--    <a href="{{route('rab.cetakPO')}}" target="_BLANK" class="btn btn-purple m-l-10 waves-light  ">Cetak-->
+                <!--        Purchase Order</a>-->
+                <!--</div>-->
 
             </div>
 
@@ -39,7 +39,7 @@
                         <th>Nama Proyek</th>
                         <th>Harga Total (Rp.)</th>
                         <th>Tanggal Dibuat</th>
-                        <th>Status</th>
+                        <!--<th>Status</th>-->
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -49,36 +49,28 @@
                     <tr>
                         <td>{{$key+1}}</td>
                         <td>{{$value['nama']}}</td>
-                        <td>{{$harga_total[$key]}}</td>
+                        <td>@currency($harga_total[$key] )</td>
                         <td>{{date("d-M-Y, H:i ", strtotime(($value->created_at)))}} WIB</td>
+                        <!--<td>-->
+                        <!--    @if($value['status'] == 0)-->
+                        <!--    Belum Di Approve Pimpinan-->
+                        <!--    @elseif ($value['status'] == 1)-->
+                        <!--    Sudah Di Approve Pimpinan <br> ({{date("d-M-Y", strtotime(($value->updated_at)))}})-->
+                        <!--    @elseif ($value['status'] == 2)-->
+                        <!--    Selesai-->
+                        <!--    @endif-->
+                        <!--</td>-->
                         <td>
                             @if($value['status'] == 0)
-                            Belum Di Approve Pimpinan
+                            <a href="{{route('rab.detail', $value->id)}}" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>
+                            <a href="{{route('rab.edit', $value->id)}}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                            <a href="#hapus-modal" data-animation="sign" data-plugin="custommodal" data-id='{{$value->id}}' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-danger btn-sm hapus"><i class="fa fa-trash"></i></a>
+                            <a href="{{route('rab.cetak', $value->id)}}" target="_BLANK" class="btn btn-primary btn-sm"><i class="fa fa-print"></i></a>
+                             <!--<a href="#terima-modal" data-animation="sign" data-plugin="custommodal" data-id='{{$value->id}}' data-overlaySpeed="100" data-overlayColor="#36404a" class="btn btn-secondary btn-sm terima"><i class=" fa fa-check"></i></a> -->
                             @elseif ($value['status'] == 1)
-                            Sudah Di Approve Pimpinan <br> ({{date("d-M-Y", strtotime(($value->updated_at)))}})
-                            @elseif ($value['status'] == 2)
-                            Selesai
-                            @endif
-                        </td>
-                        <td>
-                            @if($value['status'] == 0)
-                            <a href="{{route('rab.edit', $value->id)}}" class="btn btn-success btn-sm"><i
-                                    class="fa fa-edit"></i></a>
-                            <a href="#hapus-modal" data-animation="sign" data-plugin="custommodal"
-                                data-id='{{$value->id}}' data-overlaySpeed="100" data-overlayColor="#36404a"
-                                class="btn btn-danger btn-sm hapus"><i class="fa fa-trash"></i></a>
-                            <a href="{{route('rab.cetak', $value->id)}}" target="_BLANK"
-                                class="btn btn-primary btn-sm"><i class="fa fa-print"></i></a>
-                            <a href="#terima-modal" data-animation="sign" data-plugin="custommodal"
-                                data-id='{{$value->id}}' data-overlaySpeed="100" data-overlayColor="#36404a"
-                                class="btn btn-secondary btn-sm terima"><i class=" fa fa-check"></i></a>
-                            @elseif ($value['status'] == 1)
-                            <a href="{{route('rab.detail', $value->id)}}" class="btn btn-success btn-sm"><i
-                                    class="fa fa-eye"></i></a>
-                            <a href="{{route('rab.cetakDO', $value->id )}}" target="_BLANK"
-                                class="btn btn-custom btn-sm  "><i class="fa fa-print"> </i> Delivery Order</a>
-                            <a href="{{route('rab.selesai', $value->id)}}" class="btn btn-success btn-sm"><i
-                                    class="fa fa-check"></i>Selesai</a>
+                            <a href="{{route('rab.detail', $value->id)}}" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>
+                            <a href="{{route('rab.cetakDO', $value->id )}}" target="_BLANK" class="btn btn-custom btn-sm  "><i class="fa fa-print"> </i> Delivery Order</a>
+                            <a href="{{route('rab.selesai', $value->id)}}" class="btn btn-success btn-sm"><i class="fa fa-check"></i>Selesai</a>
                             @elseif ($value['status'] == 2)
                             Selesai
                             @endif
@@ -110,8 +102,7 @@
         </div>
         <div class="p-20">
 
-            <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="{{route('rab.delete')}}"
-                method="POST">
+            <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="{{route('rab.delete')}}" method="POST">
                 {{csrf_field()}}
                 <div>
                     <input type="hidden" id='id_hapus' name='id'>
@@ -120,10 +111,8 @@
 
                 <div class="form-group text-center m-t-30">
                     <div class="col-xs-6">
-                        <button type="button" onclick="Custombox.close();"
-                            class="   btn btn-primary btn-bordred btn-block waves-effect waves-light">Tidak</button>
-                        <button class="btn btn-danger btn-bordred btn-block waves-effect waves-light"
-                            type="submit">Hapus</button>
+                        <button type="button" onclick="Custombox.close();" class="   btn btn-primary btn-bordred btn-block waves-effect waves-light">Tidak</button>
+                        <button class="btn btn-danger btn-bordred btn-block waves-effect waves-light" type="submit">Hapus</button>
                     </div>
                 </div>
 
@@ -147,8 +136,7 @@
         </div>
         <div class="p-20 text-left">
 
-            <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="{{route('rab.acc')}}"
-                method="POST">
+            <form class="form-horizontal m-t-20" enctype="multipart/form-data" action="{{route('rab.acc')}}" method="POST">
                 {{csrf_field()}}
                 <div>
                     <input type="hidden" id='id_terima' name='id'>
@@ -157,15 +145,13 @@
                 <div class="form-group">
                     <label>Tanggal diterima</label>
                     <div class="col-xs-12">
-                        <input class="form-control" id="datepicker-autoclose" type="text" autocomplete="off"
-                            name="tanggal" required="" placeholder="dd/mm/yyyy">
+                        <input class="form-control" id="datepicker-autoclose" type="text" autocomplete="off" name="tanggal" required="" placeholder="dd/mm/yyyy">
                     </div>
                 </div>
 
                 <div class="form-group text-center m-t-30">
                     <div class="col-xs-12">
-                        <button class="btn btn-success btn-bordred btn-block waves-effect waves-light"
-                            type="submit">Ubah</button>
+                        <button class="btn btn-success btn-bordred btn-block waves-effect waves-light" type="submit">Ubah</button>
                     </div>
                 </div>
 
@@ -178,14 +164,14 @@
 </div>
 
 <script type="text/javascript">
-$('.hapus').click(function() {
-    var id = $(this).data('id');
-    $('#id_hapus').val(id);
-});
+    $('.hapus').click(function() {
+        var id = $(this).data('id');
+        $('#id_hapus').val(id);
+    });
 
-$('.terima').click(function() {
-    var id = $(this).data('id');
-    $('#id_terima').val(id);
-});
+    $('.terima').click(function() {
+        var id = $(this).data('id');
+        $('#id_terima').val(id);
+    });
 </script>
 @endsection

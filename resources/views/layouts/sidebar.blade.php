@@ -3,6 +3,10 @@
 
     <!-- User -->
     <div class="user-box">
+        
+        <a href="{{'/'}}" class="p1">SISTEM RAB</span></a>
+      <p>PT. Sejahtera Mandiri Pekanbaru</p>
+        
       <div class="user-img">
         <img src="{{asset('adminto/images/users/avatar-1.jpg')}}" alt="user-img" title="Mat Helme" class="rounded-circle img-thumbnail img-responsive">
         <div class="user-status online"><i class="mdi mdi-adjust"></i></div>
@@ -34,9 +38,9 @@
         </li>
         @role('admin')
 
-        <li>
+        <!-- <li>
           <a href="{{route ('user.index')}}" class="waves-effect"><i class=" mdi  mdi-account-multiple"></i> <span> Kelola Pengguna </span> </a>
-        </li>
+        </li> -->
 
         <li>
           <a href="{{route ('kategori.index')}}" class="waves-effect"><i class="mdi mdi-group"></i> <span> Kategori </span> </a>
@@ -53,9 +57,9 @@
           <a href="{{route ('rab.index')}}" class="waves-effect"><i class="mdi mdi-calculator"></i> <span> RAB </span> </a>
         </li>
 
-        <li>
+        <!-- <li>
           <a href="{{route ('riwayat.index')}}" class="waves-effect"><i class="mdi mdi-history"></i> <span> Riwayat RAB </span> </a>
-        </li>
+        </li> -->
         @endrole
 
         @role('pimpinan')

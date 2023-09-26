@@ -15,7 +15,7 @@ class KategoriController extends Controller
 
     public function index()
     {
-        $title = "Kelola Data Kategori";
+        $title = "Data Kategori";
         $users = User::with('roles')->get();
         $pegawai = $users->reject(function ($admin, $key) {
             return $admin->hasRole('admin');

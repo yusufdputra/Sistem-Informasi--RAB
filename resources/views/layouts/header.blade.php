@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Informasi Agenda Pegawai</title>
+    <title>Sistem Informasi Rencana Anggaran Biaya</title>
 
     <link rel="shortcut icon" href="{{asset('adminto/images/brand/logo.png')}}">
 
@@ -34,6 +34,8 @@
 
     <!-- form Uploads -->
     <link href="{{asset('adminto/plugins/fileuploads/css/dropify.min.css')}}" rel="stylesheet" type="text/css" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/css/bootstrap-select.min.css">
 
     <!-- select2 -->
 
@@ -49,6 +51,28 @@
         }
         .home {
             text-align: justify;
+        }
+
+        .select2-dropdown {
+            z-index: 99999 !important;
+        }
+
+        .select2-container--default .select2-selection--single{
+            background-color: #fff;
+            border: 1px solid #E3E3E3;
+            border-radius: 4px;
+        }
+
+        .select2-container .select2-selection--single {
+            height: 34px !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered{
+            line-height: 32px !important;
+        }
+
+        .select2-close-mask {
+            z-index: 99999 !important;
         }
     </style>
 

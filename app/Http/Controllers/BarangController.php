@@ -18,7 +18,7 @@ class BarangController extends Controller
 
     public function index()
     {
-        $title = "Kelola Data Barang";
+        $title = "Data Barang";
         $users = User::with('roles')->get();
         $pegawai = $users->reject(function ($admin, $key) {
             return $admin->hasRole('admin');
@@ -38,6 +38,7 @@ class BarangController extends Controller
             'nama'=> strtoupper($request->nama),
             'id_suplier' => $request->suplier,
             'harga' => $request->harga,
+            'tanggal' => $request->tanggal,
             'id_kategori' => $request->kategori,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
@@ -62,6 +63,7 @@ class BarangController extends Controller
             'nama'=> strtoupper($request->nama),
             'id_suplier' => $request->suplier,
             'harga' => $request->harga,
+            'tanggal' => $request->tanggal,
             'id_kategori' => $request->kategori
         ]);
 

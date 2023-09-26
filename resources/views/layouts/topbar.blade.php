@@ -3,8 +3,8 @@
 
     <!-- LOGO -->
     <div class="topbar-left">
-        <a href="{{'/'}}" class="p1">SISTEM RAB</span></a>
-        <p>PT. Sejahtera Mandiri Pekanbaru</p>
+        <!--<a href="{{'/'}}" class="p1">SISTEM RAB</span></a>-->
+        <!--<p>PT. Sejahtera Mandiri Pekanbaru</p>-->
     </div>
 
     <!-- Button mobile view to collapse sidebar menu -->

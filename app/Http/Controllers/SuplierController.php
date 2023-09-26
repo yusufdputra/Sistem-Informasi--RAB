@@ -15,7 +15,7 @@ class SuplierController extends Controller
 
     public function index()
     {
-        $title = "Kelola Data Suplier";
+        $title = "Data Suplier";
         $users = User::with('roles')->get();
         $pegawai = $users->reject(function ($admin, $key) {
             return $admin->hasRole('admin');

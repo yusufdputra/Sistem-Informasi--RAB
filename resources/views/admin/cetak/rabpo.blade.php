@@ -46,11 +46,11 @@
   <div id="container">
     <div id="header">
       <div style="float: left;">
-        <img height="60px" src="..\public\adminto\images\brand\sejahtera.png" alt="">
-      </div>
-      <div style="float: right; ">
-        <img height="40px" src="..\public\adminto\images\brand\ims.jpg" alt="">
-      </div>
+                <img height="60px" src="{{asset('adminto/images/brand/sejahtera.png')}}" alt="">
+            </div>
+            <div style="float: right; ">
+                <img height="40px" src="{{asset('adminto/images/brand/ims.jpg')}}" alt="">
+            </div>
       <div style="text-align: center; ">
         <span style="font-size: 24px; font-weight: bold;">PT. SEJAHTERA MANDIRI PEKANBARU</span> <br>
         <span style="font-size: 18px; font-weight: bold; color: blue; ">RANCANGAN ANGGARAN BIAYA</span><br>
@@ -143,7 +143,7 @@
 
       </div>
       <div id="footer">
-        <img height="60px" src="..\public\adminto\images\brand\footer.jpg" alt="">
+        <img height="60px" src="{{asset('adminto/images/brand/footer.jpg')}}" alt="">
       </div>
     </div>
 </body>

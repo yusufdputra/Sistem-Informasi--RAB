@@ -19,7 +19,7 @@ class RabController extends Controller
     }
     public function index()
     {
-        $title = "Kelola Rancangan Anggaran Biaya (RAB)";
+        $title = "Kelola RAB";
         $users = User::with('roles')->get();
         $pegawai = $users->reject(function ($admin, $key) {
             return $admin->hasRole('admin');
@@ -57,8 +57,9 @@ class RabController extends Controller
         // get data rab
         $id_rab = Rab::find($id_rab_get);
         $nama_rab =  $id_rab->nama;
-        $title = "Ubah Rancangan Anggaran Biaya (RAB) " . $nama_rab;
+        $title = "Ubah RAB " . $nama_rab;
         // get data array 
+        // dd($id_rab->id_rab_temp);
         $id_rab_temps = unserialize($id_rab->id_rab_temp);
         // cari data rab temp dari data array
         $rab = array();
@@ -78,7 +79,7 @@ class RabController extends Controller
         // get data rab
         $id_rab = Rab::find($id_rab_get);
         $nama_rab =  $id_rab->nama;
-        $title = "Ubah Rancangan Anggaran Biaya (RAB) " . $nama_rab;
+        $title = "RAB " . $nama_rab;
         // get data array 
         $id_rab_temps = unserialize($id_rab->id_rab_temp);
         // cari data rab temp dari data array
@@ -135,6 +136,7 @@ class RabController extends Controller
             ->update([
                 'id_barang' => $request->nama_suplier,
                 'kuantitas' => $request->kuantitas,
+                'untuk' => $request->untuk,
                 'harga_barang' => $request->harga_barang,
                 'created_at' => Carbon::now()
             ]);
@@ -152,12 +154,13 @@ class RabController extends Controller
             'harga_barang' => 'required',
         ]);
         try {
-            
+
             // simpan ke rab temp
             // status auto 1
             $rabTemp = new RabTemp;
             $rabTemp->id_barang = $request->nama_suplier;
             $rabTemp->kuantitas = $request->kuantitas;
+            $rabTemp->untuk = $request->untuk;
             $rabTemp->harga_barang = $request->harga_barang;
             $rabTemp->is_selesai = 1;
             $rabTemp->created_at = Carbon::now();
@@ -184,7 +187,7 @@ class RabController extends Controller
                 return redirect()->back()->with('alert', 'RAB gagal ditambah');
             }
         } catch (\Throwable $th) {
-            return redirect()->back()->with('alert', 'RAB gagal ditambah '.$th);
+            return redirect()->back()->with('alert', 'RAB gagal ditambah ' . $th);
         }
     }
 
@@ -234,5 +237,4 @@ class RabController extends Controller
             return redirect()->back()->with('alert', 'RAB gagal diselesaikan');
         }
     }
-
 }

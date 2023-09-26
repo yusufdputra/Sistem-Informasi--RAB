@@ -7,36 +7,36 @@
     <title>Cetak Rab</title>
 
     <style>
-    html,
-    body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-    }
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
 
-    #container {
-        min-height: 100%;
-        position: relative;
-    }
+        #container {
+            min-height: 100%;
+            position: relative;
+        }
 
-    #header {
-        padding-left: 30px;
-        padding-right: 30px;
-        padding-top: 30px;
-    }
+        #header {
+            padding-left: 30px;
+            padding-right: 30px;
+            padding-top: 30px;
+        }
 
-    #body {
-        padding: 30px;
-        padding-bottom: 60px;
-        /* Height of the footer */
-    }
+        #body {
+            padding: 30px;
+            padding-bottom: 60px;
+            /* Height of the footer */
+        }
 
-    #footer {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        height: 60px;
-    }
+        #footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+        }
     </style>
 
 </head>
@@ -46,10 +46,10 @@
     <div id="container">
         <div id="header">
             <div style="float: left;">
-                <img height="60px" src="..\public\adminto\images\brand\sejahtera.png" alt="">
+                <img height="60px" src="{{asset('adminto/images/brand/sejahtera.png')}}" alt="">
             </div>
             <div style="float: right; ">
-                <img height="40px" src="..\public\adminto\images\brand\ims.jpg" alt="">
+                <img height="40px" src="{{asset('adminto/images/brand/ims.jpg')}}" alt="">
             </div>
             <div style="text-align: center; ">
                 <span style="font-size: 24px; font-weight: bold;">PT. SEJAHTERA MANDIRI PEKANBARU</span> <br>
@@ -94,7 +94,9 @@
                             <tr>
                                 <th style="padding: 5px;">No.</th>
                                 <th>Nama Barang</th>
+                               
                                 <th>Suplier</th>
+                                 <th>Untuk</th>
                                 <th>Harga (Rp.)</th>
                                 <th>Kuantitas</th>
                                 <th>Total Harga (Rp.)</th>
@@ -112,18 +114,20 @@
                             <tr>
                                 <td style="padding: 5px;">{{$key+1}}</td>
                                 <td>{{$value[0]->barang[0]->nama}}</td>
+                               
                                 <td>{{$value[0]->barang[0]->suplier[0]['nama']}}</td>
-                                <td>{{$value[0]->barang[0]->harga}}</td>
+                                 <td>{{$value[0]['untuk']}}</td>
+                                <td>@currency($value[0]->barang[0]->harga)</td>
                                 <td>{{$value[0]['kuantitas']}}</td>
-                                <td>{{$total}}</td>
+                                <td>@currency($total)</td>
 
                             </tr>
 
                             @endforeach
 
                             <tr>
-                                <td style="padding: 5px;" colspan="5">Total</td>
-                                <td>Rp. {{$harga_total}}</td>
+                                <td style="padding: 5px;" colspan="6">Total</td>
+                                <td>@currency($harga_total)</td>
                             </tr>
 
 
@@ -150,7 +154,7 @@
 
             </div>
             <div id="footer">
-                <img height="60px" src="..\public\adminto\images\brand\footer.jpg" alt="">
+                <img height="60px" src="{{asset('adminto/images/brand/footer.jpg')}}" alt="">
             </div>
         </div>
 

@@ -38,6 +38,7 @@
             <th>No.</th>
             <th>Nama barang</th>
             <th>Suplier</th>
+                        <th>Untuk</th>
             <th>Nomor Hp</th>
             <th>Alamat</th>
             <th>Harga (Rp.)</th>
@@ -56,18 +57,20 @@
           <tr>
             <td>{{$key+1}}</td>
             <td>{{$value[0]->barang[0]->nama}}</td>
+      
             <td>{{$value[0]->barang[0]->suplier[0]['nama']}}</td>
+                  <td>{{$value[0]['untuk']}}</td>
             <td>{{$value[0]->barang[0]->suplier[0]['nomor_hp']}}</td>
             <td>{{$value[0]->barang[0]->suplier[0]['alamat']}}</td>
-            <td>{{$value[0]->barang[0]->harga}}</td>
+            <td>@currency($value[0]->barang[0]->harga)</td>
             <td>{{$value[0]['kuantitas']}}</td>
-            <td>{{$total}}</td>
+            <td>@currency($total)</td>
 
           </tr>
           @endforeach
           <tr class="header-title">
-            <td style="text-align: center;" colspan="7">Total</td>
-            <td>Rp. {{$harga_total}}</td>
+            <td style="text-align: center;" colspan="8">Total</td>
+            <td>@currency($harga_total)</td>
           </tr>
         </tbody>
       </table>

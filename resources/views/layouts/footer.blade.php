@@ -51,6 +51,8 @@
 <!-- file uploads js -->
 <script src="{{asset('adminto/plugins/fileuploads/js/dropify.min.js')}}"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
+
 <!-- select2 -->
 <script src="{{asset('adminto/plugins/select2/js/select2.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('adminto/plugins/switchery/switchery.min.js')}}"></script>
@@ -83,7 +85,12 @@
             todayHighlight: true,
         });
         // Default Datatable
-        $('#datatable').DataTable();
+        $('#datatable').DataTable({
+            lengthMenu: [
+                [10, 25, 50, 100, -1],
+                [10, 25, 50, 100, 'All'],
+            ],
+        });
 
         //Buttons examples
         var table = $('#datatable-buttons').DataTable({

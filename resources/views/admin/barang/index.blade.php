@@ -50,8 +50,9 @@
                         <th>Nama barang</th>
                         <th>Suplier</th>
                         <th>Harga (Rp.)</th>
+                        <th>Tanggal Pada Bon</th>
                         <th>Kategori</th>
-                        <th>Tanggal Penginputan</th>
+                        <!--<th>Tanggal Penginputan</th>-->
                         @role('admin')
                         <th>Aksi</th>
                         @endrole
@@ -63,11 +64,12 @@
                         <td>{{$key+1}}</td>
                         <td>{{$value['nama']}}</td>
                         <td>{{$value->suplier[0]['nama']}}</td>
-                        <td>{{$value['harga']}}</td>
+                        <td>@currency($value['harga'])</td>
+                        <td>{{$value['tanggal']}}</td>
                         <td>{{$value->kategori[0]['nama']}}</td>
-                        <td>
-                            {{date('d-M-Y, H:i', strtotime($value['updated_at']))}} WIB
-                        </td>
+                        <!--<td>-->
+                        <!--    {{date('d-M-Y, H:i', strtotime($value['updated_at']))}} WIB-->
+                        <!--</td>-->
                         @role('admin')
                         <td>
                             <a href="#edit-modal" data-animation="sign" data-plugin="custommodal"
@@ -107,7 +109,7 @@
                 <div class="form-group">
                     <label>Nama barang</label>
                     <div class="col-xs-12">
-                        <input class="form-control" type="text" autocomplete="off" name="nama" required=""
+                        <input class="form-control" type="text" step="any" autocomplete="off" name="nama" required=""
                             placeholder="Nama barang">
                     </div>
                 </div>
@@ -140,6 +142,14 @@
                     <div class="col-xs-12">
                         <input class="form-control" min="0" type="number" autocomplete="off" name="harga" required=""
                             placeholder="Harga Barang">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="">Tanggal Pada Bon</label>
+                    <div class="col-xs-12">
+                        <input class="form-control" min="0" type="date" autocomplete="off" name="tanggal" required=""
+                            placeholder="Tanggal Pada Bon">
                     </div>
                 </div>
 
@@ -213,6 +223,14 @@
                             name="harga" required="" placeholder="Harga Barang">
                     </div>
                 </div>
+                
+                <div class="form-group">
+                    <label for="">Tanggal Pada Bon</label>
+                    <div class="col-xs-12">
+                        <input class="form-control" min="0" type="date" id="edit_tanggal" autocomplete="off"
+                            name="tanggal" required="" placeholder="Tanggal Pada Bon">
+                    </div>
+                </div>
 
                 <div class="form-group text-center m-t-30">
                     <div class="col-xs-12">
@@ -281,6 +299,7 @@ $('.modal_edit').click(function() {
             $('#edit_nama').val(data['nama'])
             $('#edit_suplier').val(data['id_suplier'])
             $('#edit_harga').val(data['harga'])
+            $('#edit_tanggal').val(data['tanggal'])
             $('#edit_kategori').val(data['id_kategori'])
 
         },
