@@ -35,7 +35,7 @@ class BarangImport implements ToCollection, WithStartRow
                 $query = Barang::insert([
                     'nama'=> strtoupper($row[0]),
                     'id_suplier' => $suplier->id,
-                    'harga' => $row[2],
+                    'harga' => intval($row[2]),
                     'tanggal' => $this->parseDate($row[3]),
                     'id_kategori' => $kategori->id,
                     'created_at' => Carbon::now(),
