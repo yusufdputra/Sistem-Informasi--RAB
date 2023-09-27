@@ -25,7 +25,7 @@ class BarangImport implements ToCollection, WithStartRow
                 $suplier = Suplier::where(DB::raw('lower(nama)'), 'like', '%' . strtolower($row[1]) . '%')->first();
                 if (empty($suplier)) {
                     // batalkan query import dan berikan notif ke user
-                    throw new \Exception("Suplier ".$row[0]. " tidak ditemukan. Baris ke-".$i+1);
+                    throw new \Exception("Suplier ".$row[1]. " tidak ditemukan. Baris ke-".$i+1);
                 }
                 $kategori = Kategori::where(DB::raw('lower(nama)'), 'like', '%' . strtolower($row[4]) . '%')->first();
                 if (empty($kategori)) {
