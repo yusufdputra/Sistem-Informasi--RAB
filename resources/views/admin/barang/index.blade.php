@@ -51,7 +51,7 @@
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Nama barang</th>
+                        <th>Nama Benda</th>
                         <th>Suplier</th>
                         <th>Harga (Rp.)</th>
                         <th>Tanggal Pada Bon</th>
